@@ -1,0 +1,56 @@
+{% extends '../base.html' %}
+
+  {% block content %}
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-2">
+        <div class="pl-3 mb-5">
+          <p><a href="javascript:history.go(-1)">Назад</a></p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8">
+        <section class="pl-3">
+          <img src="{{ vacancy.specialty.picture.url }}" width="80" height="80" alt="">
+          <div class="d-flex align-items-baseline align-content-baseline">
+            <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.title }}</h1>
+            {% load humanize %}
+            <p class="m-0 pl-3">{{ vacancy.salary_min|intcomma }} – {{ vacancy.salary_max|intcomma }} Р</p>
+          </div>
+          <p class="mt-2">{{ vacancy.specialty.title }} &#8226 {{ vacancy.skills|join:" &#8226 " }}</p>
+          <p class="text-muted mb-4">Компания ({{ vacancy.company.employee_count }} человек), {{ vacancy.company.location }} или удаленно</p>
+          <div style="line-height: 1.8;">
+            {{ vacancy.description|safe }}
+          </div>
+
+          {% if user.is_authenticated %}
+          <a name="error"></a>
+          <div class="card-body mx-3">
+              <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
+              {% load crispy_forms_tags %}
+
+              {% crispy form %}
+
+              {% if messages %}
+
+
+                {% for message in messages %}
+
+                <p class="text-muted"><font color="red">{{ message }}</font></p>
+                {% endfor %}
+              {% endif %}
+          </div>
+          {% else %}
+          <div class="mt-3">
+            <p class="alert alert-info" role="alert"><a href="{% url 'login' %}">Авторизируйтесь</a> в системе, чтобы отозваться на вакансию!</p>
+          </div>
+          {% endif %}
+
+        </section>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
+
+
+
+

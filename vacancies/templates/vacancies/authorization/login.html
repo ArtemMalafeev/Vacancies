@@ -1,0 +1,30 @@
+{% extends '../base.html' %}
+
+  {% block content %}
+<body>
+  <main class="container">
+    <div class="row">
+      <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+          <div class="text-center mt-5 b-1">
+
+            <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
+            <p class="h5 font-weight-light">Войдите, чтобы управлять</p>
+          </div>
+          {% load crispy_forms_tags %}
+
+          {% crispy form %}
+
+          {% if messages %}
+            {% for message in messages %}
+                 <p class="text-muted"><font color="red">{{ message }}</font></p>
+            {% endfor %}
+          {% endif %}
+
+          {% if error %}
+           <p class="text-muted"><font color="red">{{ error }}</font></p>
+          {% endif %}
+        <div class="mt-4 text-center"><p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь!</a></p></div>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
